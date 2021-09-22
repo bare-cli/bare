@@ -14,6 +14,6 @@ var addCmd = &cobra.Command{
 	Short: "add you current bare to repo",
 	Long: "same as short for addCmd",
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("Adding your bare ...")
+		fmt.Println("Reading your recipe ...")
 	},
 }
