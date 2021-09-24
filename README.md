@@ -1,7 +1,14 @@
 # BARE
 
-## Using Recipe 
+## Using Recipe
 
-- Must have first line with `BARE <name of the bare>` which communicates with local and cloude bare
-- Add all the folder you want to add 
-- 
+### Adding a new bare
+```
+bare init <bare name> 
+```
+This makes a `recipe.json` file and a folder at `~/.bare` directory
+
+```
+bare add recipe.json
+```
+Reads your json file and create the template in `~/.bare`
