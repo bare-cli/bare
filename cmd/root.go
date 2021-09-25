@@ -1,6 +1,7 @@
 package cmd
 
 import (
+	"bare/styles"
 	"fmt"
 	"os"
 
@@ -12,7 +13,7 @@ var rootCmd = &cobra.Command{
 	Short: "manager for you barebones",
 	Long: "manage for your barebones",
 	Run: func(cmd *cobra.Command, args []string){
-		fmt.Println("Hello this is from rootCmd")
+		fmt.Println(styles.InitStyle.Render("Hello this is from rootCmd"))
 	},
 }
 
