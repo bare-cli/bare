@@ -1,6 +1,6 @@
 {
   "name": "barego",
-  "version": "0.0.1",
+  "version": "0.0.11",
   "description": "A boilerplate manager cli tool",
   "main": "index.js",
   "repository": {
@@ -26,6 +26,6 @@
   "gBinary" : {
     "name" : "bare",
     "path" : "./bin",
-    "url" : "https://github.com/madrix01/Bare/releases/tag/v0.0.1a/Bare-0.0.1a.tar.gz"
+    "url" : "https://github.com/madrix01/Bare/releases/tag/v0.0.11/Bare-0.0.11.tar.gz"
   }
 }
