@@ -21,6 +21,7 @@
   "dependencies": {
     "go-npm": "^0.1.9"
   },
+  "bin" : {"bare" : "./bin/bare"},
   "postinstall" : "go-npm install",
   "preuninstall" : "go-npm uninstall",
   "gBinary" : {
