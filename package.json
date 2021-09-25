@@ -26,6 +26,6 @@
   "gBinary" : {
     "name" : "bare",
     "path" : "./bin",
-    "url" : "https://github.com/madrix01/Bare/releases/tag/v0.0.1/Bare-0.0.1.tar.gz"
+    "url" : "https://github.com/madrix01/Bare/releases/tag/v0.0.1a/Bare-0.0.1a.tar.gz"
   }
 }
