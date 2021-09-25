@@ -1,14 +1,8 @@
 {
-  "name": "@madrix01/bare",
+  "name": "barego",
   "version": "0.0.1",
   "description": "A boilerplate manager cli tool",
   "main": "index.js",
-  "directories": {
-    "test": "test"
-  },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/madrix01/Bare.git"
@@ -28,5 +22,10 @@
     "go-npm": "^0.1.9"
   },
   "postinstall" : "go-npm install",
-  "preuninstall" : "go-npm uninstall"
+  "preuninstall" : "go-npm uninstall",
+  "gBinary" : {
+    "name" : "bare",
+    "path" : "./bin",
+    "url" : "https://github.com/madrix01/Bare/releases/tag/v0.0.1/Bare-0.0.1.tar.gz"
+  }
 }
