@@ -5,7 +5,7 @@ import (
 	"bare/utils"
 )
 
-func main(){
+func main() {
 	// Check for .bare folder
 	utils.MakeInitFolder()
 	cmd.Execute()

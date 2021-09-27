@@ -5,24 +5,26 @@ import (
 	"bare/styles"
 	"bare/utils"
 	"fmt"
+	"os"
 
 	"github.com/spf13/cobra"
 )
 
 func init() {
-	rootCmd.AddCommand(addCmd);
+	rootCmd.AddCommand(addCmd)
 }
+
 var addCmd = &cobra.Command{
-	Use: "add",
+	Use:   "add",
 	Short: "add you current bare to repo",
-	Long: "same as short for addCmd",
+	Long:  "same as short for addCmd",
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println(styles.InitStyle.Render("Bare Add"))
-		addBare();
+		addBare()
 	},
 }
 
-func addBare(){
+func addBare() {
 	recipePath := "./recipe.json"
 	parser.Parser(recipePath)
 	barePath := parser.BareObj.BarePath
@@ -32,12 +34,13 @@ func addBare(){
 		destiPath := barePath + "/" + objPath
 		err := utils.CopyFileDirectory(sourcePath, destiPath)
 		if err != nil {
-			fmt.Print(" > ", styles.InitError.Render("Error"))
+			fmt.Print(" > ", err)
 			fmt.Println("")
-		}else{
+			os.Exit(1)
+		} else {
 			fmt.Print(" > ", styles.InitSuccess.Render("Success"))
 			fmt.Println("")
 		}
-	}	
+	}
 
 }

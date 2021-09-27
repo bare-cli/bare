@@ -6,31 +6,14 @@ import (
 	"log"
 )
 
-// func Parser(filePath string) {
-// 	file, err := os.Open(filePath)
-// 	if err != nil {
-// 		fmt.Println("File not found")
-// 	}
-// 	defer file.Close()
-
-// 	scanner := bufio.NewScanner(file)
-// 	for scanner.Scan() {
-// 		inputCmd := strings.TrimSpace(scanner.Text())
-// 		inputCmdArg := strings.Split(inputCmd, " ")
-// 		RecipeCmds(inputCmdArg)
-// 	}
-
-// 	if err := scanner.Err(); err != nil {
-// 		fmt.Println(err)
-// 	}
-// }
-
 type Bare struct {
 	BareName string
 	Version string
 	Include []string
-	BarePath string 
+	BarePath string
+	Touch map[string]string
 }
+
 
 var BareObj Bare
 
