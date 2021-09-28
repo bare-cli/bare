@@ -1,6 +1,6 @@
 {
   "name": "barego",
-  "version": "0.0.1e",
+  "version": "0.0.1f",
   "description": "A boilerplate manager cli tool",
   "main": "index.js",
   "repository": {
@@ -17,8 +17,9 @@
   "bugs": {
     "url": "https://github.com/madrix01/Bare/issues"
   },
-  "homepage": "https://github.com/madrix01/Bare#readme",
+  "homepage": "https://bare.surge.sh",
   "bin": {
-    "bare": "./bin/bare"
+    "bare": "./bin/bare",
+    "baren": "./bin/baren"
   }
 }

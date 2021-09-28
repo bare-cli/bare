@@ -1,5 +1,5 @@
 dev:
-	nodemon --exec "go build -o bin/bare" main.go
+	nodemon --exec "go fmt && go build -o bin/bare" main.go
 
 build:
 	go build -o bin/bare main.go
@@ -10,3 +10,6 @@ release:
 	@GOOS=windows go build -o bin/windows/bare.exe main.go
 	# tar -czvf bare.tar.gz ./bin
 	# zip bare.zip ./bin
+
+nightly:
+	go build -o bin/baren.go main.go

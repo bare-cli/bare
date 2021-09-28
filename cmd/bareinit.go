@@ -49,6 +49,7 @@ func bareInit(bareName string) {
 			newBare := parser.Bare{
 				BareName: bareName,
 				BarePath: homePath + "/.bare/" + bareName,
+				Include:  []string{"recipe.json"},
 			}
 			res, err := json.MarshalIndent(newBare, "", "    ")
 			if err != nil {
