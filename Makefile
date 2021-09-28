@@ -12,4 +12,4 @@ release:
 	# zip bare.zip ./bin
 
 nightly:
-	go build -o bin/baren.go main.go
+	go build -o bin/baren main.go
