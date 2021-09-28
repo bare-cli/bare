@@ -19,7 +19,7 @@ var listCmd = &cobra.Command{
 	Use:   "list",
 	Short: "List all the saved bare",
 	Run: func(cmd *cobra.Command, args []string) {
-		
+
 		if len(args) == 0 {
 			ListBare()
 		} else {
@@ -39,11 +39,11 @@ func ListBare() {
 		os.Exit(1)
 	}
 
-	for ind , info := range fis {
+	for ind, info := range fis {
 		if info.Name()[0] != '$' {
-			if ind != len(fis) - 1 {
+			if ind != len(fis)-1 {
 				fmt.Printf("├──%v\n", info.Name())
-			}else {
+			} else {
 				fmt.Printf("└──%v\n", info.Name())
 			}
 		}

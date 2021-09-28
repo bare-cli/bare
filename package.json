@@ -1,6 +1,6 @@
 {
   "name": "barego",
-  "version": "0.0.1f",
+  "version": "0.0.2",
   "description": "A boilerplate manager cli tool",
   "main": "index.js",
   "repository": {

@@ -7,7 +7,7 @@ import "github.com/charmbracelet/lipgloss"
 var InitStyle = lipgloss.NewStyle().
 	Foreground(lipgloss.Color("12"))
 
-var InitError = lipgloss.NewStyle().	
+var InitError = lipgloss.NewStyle().
 	Foreground(lipgloss.Color("1"))
 
 var InitSuccess = lipgloss.NewStyle().

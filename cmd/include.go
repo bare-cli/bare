@@ -3,7 +3,9 @@ package cmd
 import (
 	"bare/parser"
 	"bare/styles"
+	"bare/utils"
 	"fmt"
+	"os"
 
 	"github.com/spf13/cobra"
 )
@@ -13,28 +15,32 @@ func init() {
 }
 
 var includeCmd = &cobra.Command{
-	Use : "include",
+	Use:   "include",
 	Short: "include files to recipe.json `Include` field",
 	Run: func(cmd *cobra.Command, args []string) {
-		includeFiles(args)	
+		includeFiles(args)
 	},
 }
 
 func includeFiles(objects []string) {
 	parser.Parser("./recipe.json")
 	incMap := make(map[string]bool)
+	currDir, _ := os.Getwd()
 	for _, objs := range parser.BareObj.Include {
 		incMap[objs] = true
 	}
 
 	for _, objs := range objects {
-		if incMap[objs]{
+		if incMap[objs] {
 			continue
-		}else{
-			parser.BareObj.Include = append(parser.BareObj.Include, objs)
-			fmt.Println(styles.InitSuccess.Render("[Add] " + objs))
+		} else {
+			if utils.Exists(currDir + "/" + objs) {
+				parser.BareObj.Include = append(parser.BareObj.Include, objs)
+				fmt.Println(styles.InitSuccess.Render("[Add] " + objs))
+			} else {
+				fmt.Println(styles.InitError.Render("[Not found] "), objs)
+			}
 		}
 	}
 	parser.UpdateRecipe()
 }
-

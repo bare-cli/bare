@@ -55,7 +55,7 @@ func bareInit(bareName string) {
 			if err != nil {
 				log.Fatal(err)
 			}
-			recipeErr := ioutil.WriteFile(currDir+"/recipe.json", res, os.ModePerm)
+			recipeErr := ioutil.WriteFile(currDir+"/recipe.json", res, 0644)
 			if recipeErr != nil {
 				fmt.Println(styles.InitError.Render("[Error] Cannot create recipe.json file"))
 			} else {

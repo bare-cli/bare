@@ -29,16 +29,15 @@ func addBare() {
 	parser.Parser(recipePath)
 	barePath := parser.BareObj.BarePath
 	for _, objPath := range parser.BareObj.Include {
-		fmt.Print(styles.AddFileStlyle.Render(objPath))
 		sourcePath := "./" + objPath
 		destiPath := barePath + "/" + objPath
 		err := utils.CopyFileDirectory(sourcePath, destiPath)
 		if err != nil {
-			fmt.Print(" > ", err)
+			fmt.Print(styles.InitError.Render("[Error] "), styles.AddFileStlyle.Render(objPath))
 			fmt.Println("")
 			os.Exit(1)
 		} else {
-			fmt.Print(" > ", styles.InitSuccess.Render("Success"))
+			fmt.Print(styles.InitSuccess.Render("[Success] "), styles.AddFileStlyle.Render(objPath))
 			fmt.Println("")
 		}
 	}

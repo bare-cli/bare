@@ -10,25 +10,24 @@ import (
 
 type Bare struct {
 	BareName string
-	Version string
-	Include []string
+	Version  string
+	Include  []string
 	BarePath string
-	Touch map[string]string
+	Touch    map[string]string
 }
-
 
 var BareObj Bare
 
-func Parser(filePath string){
-	data, err := ioutil.ReadFile(filePath);
+func Parser(filePath string) {
+	data, err := ioutil.ReadFile(filePath)
 	if err != nil {
-		log.Fatal(err);
+		log.Fatal(err)
 	}
 
 	// var bareObj Bare;
 	err = json.Unmarshal(data, &BareObj)
 	if err != nil {
-		log.Fatal(err);
+		log.Fatal(err)
 	}
 
 	if BareObj.BareName == "" {
@@ -39,7 +38,7 @@ func Parser(filePath string){
 func UpdateRecipe() {
 	currDir, _ := os.Getwd()
 	recipePath := currDir + "/recipe.json"
-	updatedRecipe, err := json.MarshalIndent(BareObj, "", "    ");
+	updatedRecipe, err := json.MarshalIndent(BareObj, "", "    ")
 	if err != nil {
 		log.Fatal(err)
 	}

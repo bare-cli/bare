@@ -14,17 +14,17 @@ func init() {
 }
 
 var useCmd = &cobra.Command{
-	Use: "use",
-	Short : "Create a project from all your bares",
+	Use:   "use",
+	Short: "Create a project from all your bares",
 	Run: func(cmd *cobra.Command, args []string) {
-		useBare(args[0], args[1]);
+		useBare(args[0], args[1])
 		// bare use <bare-name> <destination>
 	},
 }
 
 func useBare(bareName, desti string) {
 	currDir, _ := os.Getwd()
-	barePath := os.Getenv("HOME") + "/.bare" 
+	barePath := os.Getenv("HOME") + "/.bare"
 
 	if !utils.Exists(barePath + "/" + bareName) {
 		fmt.Println(styles.InitError.Render("Bare doesn't exsist"))
@@ -35,8 +35,8 @@ func useBare(bareName, desti string) {
 	if utils.Exists(currDir + "/" + desti) {
 		fmt.Println(styles.InitError.Render("File name already exsists"))
 		os.Exit(1)
-	}else{
-		utils.CreateIfNotExists(currDir + "/" + desti, 0755)
+	} else {
+		utils.CreateIfNotExists(currDir+"/"+desti, 0755)
 		utils.CopyDirectory((barePath + "/" + bareName), (currDir + "/" + desti))
 	}
 
