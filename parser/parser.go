@@ -1,9 +1,11 @@
 package parser
 
 import (
+	"bare/utils"
 	"encoding/json"
 	"io/ioutil"
 	"log"
+	"os"
 )
 
 type Bare struct {
@@ -31,5 +33,20 @@ func Parser(filePath string){
 
 	if BareObj.BareName == "" {
 		log.Fatal("Bare name not present")
+	}
+}
+
+func UpdateRecipe() {
+	currDir, _ := os.Getwd()
+	recipePath := currDir + "/recipe.json"
+	updatedRecipe, err := json.MarshalIndent(BareObj, "", "    ");
+	if err != nil {
+		log.Fatal(err)
+	}
+	if utils.Exists(recipePath) {
+		err = ioutil.WriteFile(recipePath, updatedRecipe, 0644)
+		if err != nil {
+			log.Fatal(err)
+		}
 	}
 }

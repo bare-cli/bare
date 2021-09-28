@@ -8,5 +8,5 @@ release:
 	@GOOS=linux go build -o bin/linux/bare main.go
 	@GOOS=darwin go build -o bin/darwin/bare main.go
 	@GOOS=windows go build -o bin/windows/bare.exe main.go
-	tar -czvf bare.tar.gz ./bin
-	zip bare.zip ./bin
+	# tar -czvf bare.tar.gz ./bin
+	# zip bare.zip ./bin

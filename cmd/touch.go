@@ -21,7 +21,6 @@ var touchCmd = &cobra.Command{
 	Short: "add a single boilerplate file from a bare",
 	Run: func(cmd *cobra.Command, args []string) {
 		touchFile(args[0], args[1])
-		// bare touch <touch-name> <destination>
 	},
 }
 
