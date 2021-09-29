@@ -3,29 +3,20 @@
 A tool to manage all your boilerplate from cli and generate files for you !
 ## Installation
 Currently available for debian based system will release for other systems later
-```
+```bash
 npm i -g barego
+bare #to check installation
 ```
-## Using Recipe
-### Adding a new bare
-```
-bare init <bare name> 
-```
-This makes a `recipe.json` file and a folder at `~/.bare/<bare-name>` directory
 
-Edit the `recipe.json`. 
-
-- `BareName`  : the name of the boilerplate
-- `Version` : adds version of the boilerplate `in development`
-- `Include` : list all the files in array For eg. `[src/index.js, Dockerfile]` and bare will save this file as your boilerplate
-- `Barepath` : DO NOT CHANGE this unless you know what you are doing. This field points to the path where the bare in present in your home directory.
-
-After editing `recipe.json` according to your preference use 
+For nightly version
+```bash
+npm i -g madrix01/Bare#dev
+baren #to check installation 
 ```
-bare add
-```
-Reads your json file and create the template in `~/.bare/<bare-name>`
-And you can use this files next time you want to create project!!
+
+## For commands and usage follow the [docs](https://bare.surge.sh)
+
+
 
 ### More feature are in development 🏗️ 
 ### Contribute to make it better
