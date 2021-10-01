@@ -5,6 +5,7 @@ import (
 	"bare/utils"
 	"fmt"
 	"os"
+	"path/filepath"
 
 	"github.com/spf13/cobra"
 )
@@ -24,20 +25,20 @@ var useCmd = &cobra.Command{
 
 func useBare(bareName, desti string) {
 	currDir, _ := os.Getwd()
-	barePath := os.Getenv("HOME") + "/.bare"
+	barePath := filepath.Join(os.Getenv("HOME"), ".bare")
 
-	if !utils.Exists(barePath + "/" + bareName) {
+	if !utils.Exists(filepath.Join(barePath, bareName)) {
 		fmt.Println(styles.InitError.Render("Bare doesn't exsist"))
 		fmt.Println("User `bare list` to get list of all the bares")
 		os.Exit(1)
 	}
 
-	if utils.Exists(currDir + "/" + desti) {
+	if utils.Exists(filepath.Join(currDir, desti)) {
 		fmt.Println(styles.InitError.Render("File name already exsists"))
 		os.Exit(1)
 	} else {
-		utils.CreateIfNotExists(currDir+"/"+desti, 0755)
-		utils.CopyDirectory((barePath + "/" + bareName), (currDir + "/" + desti))
+		utils.CreateIfNotExists(filepath.Join(currDir, desti), 0755)
+		utils.CopyDirectory(filepath.Join(barePath, bareName), filepath.Join(currDir, desti))
 	}
 
 }

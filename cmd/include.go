@@ -6,6 +6,7 @@ import (
 	"bare/utils"
 	"fmt"
 	"os"
+	"path/filepath"
 
 	"github.com/spf13/cobra"
 )
@@ -34,7 +35,7 @@ func includeFiles(objects []string) {
 		if incMap[objs] {
 			continue
 		} else {
-			if utils.Exists(currDir + "/" + objs) {
+			if utils.Exists(filepath.Join(currDir, objs)) {
 				parser.BareObj.Include = append(parser.BareObj.Include, objs)
 				fmt.Println(styles.InitSuccess.Render("[Add] " + objs))
 			} else {

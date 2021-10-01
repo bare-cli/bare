@@ -6,6 +6,7 @@ import (
 	"bare/utils"
 	"fmt"
 	"os"
+	"path/filepath"
 
 	"github.com/spf13/cobra"
 )
@@ -29,8 +30,8 @@ func addBare() {
 	parser.Parser(recipePath)
 	barePath := parser.BareObj.BarePath
 	for _, objPath := range parser.BareObj.Include {
-		sourcePath := "./" + objPath
-		destiPath := barePath + "/" + objPath
+		sourcePath := filepath.Join(".", objPath)
+		destiPath := filepath.Join(barePath, objPath)
 		err := utils.CopyFileDirectory(sourcePath, destiPath)
 		if err != nil {
 			fmt.Print(styles.InitError.Render("[Error] "), styles.AddFileStlyle.Render(objPath))

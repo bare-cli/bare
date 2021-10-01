@@ -9,6 +9,7 @@ import (
 	"io/ioutil"
 	"log"
 	"os"
+	"path/filepath"
 
 	"github.com/spf13/cobra"
 )
@@ -38,8 +39,8 @@ func bareInit(bareName string) {
 	currDir, _ := os.Getwd()
 	homePath := os.Getenv("HOME")
 
-	bareFolderExsists := utils.Exists(homePath + "/.bare/" + bareName)
-	recipeFileExsists := utils.Exists(currDir + "/recipe.json")
+	bareFolderExsists := utils.Exists(filepath.Join(homePath, ".bare", bareName))
+	recipeFileExsists := utils.Exists(filepath.Join(currDir, "recipe.json"))
 
 	if bareFolderExsists {
 		fmt.Println(styles.InitError.Render("[Error] Bare with similar name exsists"))
@@ -48,14 +49,14 @@ func bareInit(bareName string) {
 		if !recipeFileExsists {
 			newBare := parser.Bare{
 				BareName: bareName,
-				BarePath: homePath + "/.bare/" + bareName,
+				BarePath: filepath.Join(homePath, ".bare", bareName),
 				Include:  []string{"recipe.json"},
 			}
 			res, err := json.MarshalIndent(newBare, "", "    ")
 			if err != nil {
 				log.Fatal(err)
 			}
-			recipeErr := ioutil.WriteFile(currDir+"/recipe.json", res, 0644)
+			recipeErr := ioutil.WriteFile(filepath.Join(currDir, "recipe.json"), res, 0644)
 			if recipeErr != nil {
 				fmt.Println(styles.InitError.Render("[Error] Cannot create recipe.json file"))
 			} else {
@@ -63,7 +64,7 @@ func bareInit(bareName string) {
 			}
 		}
 
-		if err := os.Mkdir(homePath+"/.bare/"+bareName, os.ModePerm); err != nil {
+		if err := os.Mkdir(filepath.Join(homePath, ".bare", bareName), os.ModePerm); err != nil {
 			log.Fatal(err)
 		} else {
 			fmt.Println(styles.InitSuccess.Render("[Success] Created new bare "), bareName)

@@ -30,7 +30,7 @@ var listCmd = &cobra.Command{
 
 func ListBare() {
 	fmt.Println(styles.InitStyle.Render("Lists of all the bare"))
-	barePath := os.Getenv("HOME") + "/.bare"
+	barePath := filepath.Join(os.Getenv("HOME"), ".bare")
 
 	fis, err := ioutil.ReadDir(barePath)
 
@@ -52,7 +52,7 @@ func ListBare() {
 
 func ListFileWalk(bareName string) {
 	fmt.Println(styles.InitStyle.Render("Lists of all the files in"), styles.InitSuccess.Render(bareName))
-	barePath := os.Getenv("HOME") + "/.bare/" + bareName
+	barePath := filepath.Join(os.Getenv("HOME"), ".bare", bareName)
 	printDirectory(barePath, 0)
 }
 

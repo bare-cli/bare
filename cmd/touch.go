@@ -7,6 +7,7 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+	"path/filepath"
 	"strings"
 
 	"github.com/spf13/cobra"
@@ -34,7 +35,7 @@ func touchFile(touchName, newName string) {
 		fmt.Println(styles.InitError.Render("No such touch present"))
 		os.Exit(1)
 	} else {
-		if utils.Exists(currDir + "/" + newName) {
+		if utils.Exists(filepath.Join(currDir, newName)) {
 			fmt.Println("Already exsists !!")
 			inp := "n" // warning
 			reader := bufio.NewReader(os.Stdin)
@@ -42,12 +43,12 @@ func touchFile(touchName, newName string) {
 			inp, _ = reader.ReadString('\n')
 			inp = strings.Trim(inp, " ")
 			if inp == "y" || inp == "Y" {
-				utils.CopyFileDirectory((barePath + "/" + touchMap[touchName]), currDir+"/"+newName)
+				utils.CopyFileDirectory(filepath.Join(barePath + "/" + touchMap[touchName]), filepath.Join(currDir, newName))
 			} else {
 				os.Exit(0)
 			}
 		} else {
-			utils.CopyFileDirectory((barePath + "/" + touchMap[touchName]), currDir+"/"+newName)
+			utils.CopyFileDirectory(filepath.Join(barePath ,touchMap[touchName]), filepath.Join(currDir, newName))
 		}
 	}
 }
