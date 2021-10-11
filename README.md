@@ -19,8 +19,12 @@ Currently available for debian based system will release for other systems later
 - From source :
 
 	Please see [Install](Install.md)
+## Downloads
+[![SVG Banners](https://svg-banners.vercel.app/api?type=typeWriter&text1=Download%20Count&width=800&height=400)](extra/download-count.md)
+
 
 ## For commands and usage follow the [docs](https://bare.surge.sh)
+
 
 
 
