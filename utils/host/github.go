@@ -5,9 +5,8 @@ import (
 	"strings"
 )
 
-
 const (
-	githubURL = "https://github.com"
+	githubURL        = "https://github.com"
 	githubStorageURL = "https://codeload.github.com"
 )
 
@@ -20,7 +19,6 @@ const (
 // 	if zipRegex.MatchString(repo) {
 // 		return repo
 // 	}
-
 
 // }
 

@@ -11,11 +11,10 @@ import (
 	"golang.org/x/oauth2"
 )
 
-
 var (
-	name = "gotest1"
+	name        = "gotest1"
 	description = "This is a test repo created from golang"
-	private = true
+	private     = true
 )
 
 func CreateRepo() {
@@ -46,7 +45,7 @@ type CloneOptions git.CloneOptions
 func CloneRepo(dir string, opts CloneOptions) error {
 	o := git.CloneOptions(opts)
 
-	_, err := git.PlainClone(dir, false, &o);
-	
+	_, err := git.PlainClone(dir, false, &o)
+
 	return err
 }

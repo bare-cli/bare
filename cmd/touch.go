@@ -43,12 +43,12 @@ func touchFile(touchName, newName string) {
 			inp, _ = reader.ReadString('\n')
 			inp = strings.Trim(inp, " ")
 			if inp == "y" || inp == "Y" {
-				utils.CopyFileDirectory(filepath.Join(barePath + "/" + touchMap[touchName]), filepath.Join(currDir, newName))
+				utils.CopyFileDirectory(filepath.Join(barePath+"/"+touchMap[touchName]), filepath.Join(currDir, newName))
 			} else {
 				os.Exit(0)
 			}
 		} else {
-			utils.CopyFileDirectory(filepath.Join(barePath ,touchMap[touchName]), filepath.Join(currDir, newName))
+			utils.CopyFileDirectory(filepath.Join(barePath, touchMap[touchName]), filepath.Join(currDir, newName))
 		}
 	}
 }
