@@ -3,7 +3,7 @@ package cmd
 import (
 	"bare/parser"
 	"bare/styles"
-	"bare/utils"
+	"bare/utils/osutil"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
@@ -39,8 +39,8 @@ func bareInit(bareName string) {
 	currDir, _ := os.Getwd()
 	homePath := os.Getenv("HOME")
 
-	bareFolderExsists := utils.Exists(filepath.Join(homePath, ".bare", bareName))
-	recipeFileExsists := utils.Exists(filepath.Join(currDir, "recipe.json"))
+	bareFolderExsists := osutil.Exists(filepath.Join(homePath, ".bare", bareName))
+	recipeFileExsists := osutil.Exists(filepath.Join(currDir, "recipe.json"))
 
 	if bareFolderExsists {
 		fmt.Println(styles.InitError.Render("[Error] Bare with similar name exsists"))

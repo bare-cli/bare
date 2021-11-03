@@ -1,7 +1,7 @@
 package parser
 
 import (
-	"bare/utils"
+	"bare/utils/osutil"
 	"encoding/json"
 	"io/ioutil"
 	"log"
@@ -42,7 +42,7 @@ func UpdateRecipe() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	if utils.Exists(recipePath) {
+	if osutil.Exists(recipePath) {
 		err = ioutil.WriteFile(recipePath, updatedRecipe, 0644)
 		if err != nil {
 			log.Fatal(err)

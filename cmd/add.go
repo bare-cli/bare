@@ -3,7 +3,7 @@ package cmd
 import (
 	"bare/parser"
 	"bare/styles"
-	"bare/utils"
+	"bare/utils/osutil"
 	"fmt"
 	"os"
 	"path/filepath"
@@ -32,7 +32,7 @@ func addBare() {
 	for _, objPath := range parser.BareObj.Include {
 		sourcePath := filepath.Join(".", objPath)
 		destiPath := filepath.Join(barePath, objPath)
-		err := utils.CopyFileDirectory(sourcePath, destiPath)
+		err := osutil.CopyFileDirectory(sourcePath, destiPath)
 		if err != nil {
 			fmt.Print(styles.InitError.Render("[Error] "), styles.AddFileStlyle.Render(objPath))
 			fmt.Println("")

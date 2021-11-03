@@ -3,7 +3,7 @@ package cmd
 import (
 	"bare/parser"
 	"bare/styles"
-	"bare/utils"
+	"bare/utils/osutil"
 	"fmt"
 	"os"
 	"path/filepath"
@@ -35,7 +35,7 @@ func includeFiles(objects []string) {
 		if incMap[objs] {
 			continue
 		} else {
-			if utils.Exists(filepath.Join(currDir, objs)) {
+			if osutil.Exists(filepath.Join(currDir, objs)) {
 				parser.BareObj.Include = append(parser.BareObj.Include, objs)
 				fmt.Println(styles.InitSuccess.Render("[Add] " + objs))
 			} else {

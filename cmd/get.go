@@ -2,8 +2,9 @@ package cmd
 
 import (
 	"bare/styles"
-	"bare/utils"
+	"bare/utils/git"
 	"bare/utils/host"
+	"bare/utils/osutil"
 	"fmt"
 	"os"
 	"path"
@@ -30,12 +31,12 @@ func getGithub(args []string) {
 	currDir, _ := os.Getwd()
 	targetPath := path.Join(currDir, args[1])
 
-	if utils.Exists(path.Join(currDir, args[1])) {
+	if osutil.Exists(path.Join(currDir, args[1])) {
 		fmt.Println(styles.InitError.Render("Directory with similar name already exsists !"))
 		os.Exit(1)
 	}
 
-	if err := utils.CloneRepo(targetPath, utils.CloneOptions{
+	if err := git.CloneRepo(targetPath, git.CloneOptions{
 		URL: host.URL(args[0]),
 	}); err != nil {
 		fmt.Println(styles.InitError.Render("There was error cloning the repo"), args[0])
