@@ -1,5 +1,5 @@
 dev:
-	nodemon --exec "go fmt && go build -o bin/baren" main.go
+	nodemon --exec "go fmt && go build -o bin/test/baren" main.go
 
 build:
 	go build -o bin/bare main.go
@@ -11,3 +11,7 @@ release:
 
 nightly:
 	go build -o bin/baren main.go
+
+setup:
+	echo "Setting up"
+	go mod download
