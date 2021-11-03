@@ -16,6 +16,10 @@ or by [gh](https://github.com/cli/cli) :
 
 - Change directory to your local copy:
 	`cd <folder-name>`
+- Setup the project with:
+	```
+	make setup
+	```
 - `go mod tidy` (Optional, if bash errors out)
 - Build the tool using make:
 	`make build`
