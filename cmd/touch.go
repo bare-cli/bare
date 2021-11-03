@@ -3,7 +3,7 @@ package cmd
 import (
 	"bare/parser"
 	"bare/styles"
-	"bare/utils"
+	"bare/utils/osutil"
 	"bufio"
 	"fmt"
 	"os"
@@ -35,7 +35,7 @@ func touchFile(touchName, newName string) {
 		fmt.Println(styles.InitError.Render("No such touch present"))
 		os.Exit(1)
 	} else {
-		if utils.Exists(filepath.Join(currDir, newName)) {
+		if osutil.Exists(filepath.Join(currDir, newName)) {
 			fmt.Println("Already exsists !!")
 			inp := "n" // warning
 			reader := bufio.NewReader(os.Stdin)
@@ -43,12 +43,12 @@ func touchFile(touchName, newName string) {
 			inp, _ = reader.ReadString('\n')
 			inp = strings.Trim(inp, " ")
 			if inp == "y" || inp == "Y" {
-				utils.CopyFileDirectory(filepath.Join(barePath+"/"+touchMap[touchName]), filepath.Join(currDir, newName))
+				osutil.CopyFileDirectory(filepath.Join(barePath+"/"+touchMap[touchName]), filepath.Join(currDir, newName))
 			} else {
 				os.Exit(0)
 			}
 		} else {
-			utils.CopyFileDirectory(filepath.Join(barePath, touchMap[touchName]), filepath.Join(currDir, newName))
+			osutil.CopyFileDirectory(filepath.Join(barePath, touchMap[touchName]), filepath.Join(currDir, newName))
 		}
 	}
 }

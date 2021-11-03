@@ -2,7 +2,7 @@ package cmd
 
 import (
 	"bare/styles"
-	"bare/utils"
+	"bare/utils/osutil"
 	"fmt"
 	"os"
 	"path/filepath"
@@ -30,7 +30,7 @@ func rmBare(delBares []string) {
 	fmt.Println(styles.InitStyle.Render("Bare rm"))
 	barePath := filepath.Join(os.Getenv("HOME"), ".bare")
 	for _, bare := range delBares {
-		if utils.Exists(filepath.Join(barePath, bare)) {
+		if osutil.Exists(filepath.Join(barePath, bare)) {
 			fmt.Println(styles.InitError.Render("[Deleting] "), bare)
 			os.RemoveAll(filepath.Join(barePath, bare))
 		}
