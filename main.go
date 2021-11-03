@@ -2,11 +2,11 @@ package main
 
 import (
 	"bare/cmd"
-	"bare/utils"
+	"bare/utils/osutil"
 )
 
 func main() {
 	// Check for .bare folder
-	utils.MakeInitFolder()
+	osutil.MakeInitFolder()
 	cmd.Execute()
 }
