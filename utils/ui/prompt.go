@@ -1,4 +1,4 @@
-package prompt
+package ui
 
 import (
 	"errors"
@@ -33,9 +33,10 @@ func Prompt() {
 	fmt.Printf("You choose %q\n", result)
 }
 
-func PromptString(label string) string {
+func PromptString(label string, def string) string {
 	prompt := promptui.Prompt{
-		Label: label,
+		Label:   label,
+		Default: def,
 	}
 
 	result, err := prompt.Run()
@@ -43,5 +44,23 @@ func PromptString(label string) string {
 		log.Fatal("Error encountered in Prompt.")
 	}
 
+	return result
+}
+
+func PromptSelect(label string, items []string) string {
+
+	prompt := promptui.Select{
+		Label:        label,
+		Items:        items,
+		HideHelp:     true,
+		HideSelected: true,
+	}
+
+	_, result, err := prompt.Run()
+
+	if err != nil {
+		log.Fatal("Error encountered in Prompt.")
+	}
+	fmt.Printf("Template : %s\n", result)
 	return result
 }

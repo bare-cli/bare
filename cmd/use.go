@@ -1,11 +1,10 @@
 package cmd
 
 import (
-	"bare/styles"
+	"bare/utils/git"
 	"bare/utils/osutil"
-	"fmt"
-	"os"
-	"path/filepath"
+	"bare/utils/parser"
+	"bare/utils/ui"
 
 	"github.com/spf13/cobra"
 )
@@ -23,22 +22,42 @@ var useCmd = &cobra.Command{
 	},
 }
 
+type NewTemplate struct {
+	Name      string
+	Template  string
+	Variables map[string]string
+	BarePath  string
+}
+
+var TempObj NewTemplate
+
 func useBare(bareName, desti string) {
-	currDir, _ := os.Getwd()
-	barePath := filepath.Join(os.Getenv("HOME"), ".bare")
+	// TODO
+	//	[x] Parse github repo
+	// 	[x] Get recipe.json
+	// 	[x] prompt preferences
+	//		[x] Prompt Project name
+	//		[x] Prompt template
+	//		[x] Prompt variables
+	// 	[ ] If successful download .tar.gz
+	// 	[ ] extract .tar.gz
+	// 		[ ] If -C flag is present cache it.
+	// 	[ ] Execute the required template
+	// - Download the repo as .tar.gz
 
-	if !osutil.Exists(filepath.Join(barePath, bareName)) {
-		fmt.Println(styles.InitError.Render("Bare doesn't exsist"))
-		fmt.Println("User `bare list` to get list of all the bares")
-		os.Exit(1)
-	}
+	user, repo, branch := parser.ParseGithubRepo(bareName)
+	parser.GetRecipe(user, repo, branch)
+	//ui.PromptStringNew("Enter project name", parser.BareObj.BareName)
+	TempObj.Name = ui.PromptString("Enter project name", parser.BareObj.BareName)
+	TempObj.Template = ui.PromptSelect("Select template", parser.BareObj.Variants)
 
-	if osutil.Exists(filepath.Join(currDir, desti)) {
-		fmt.Println(styles.InitError.Render("File name already exsists"))
-		os.Exit(1)
-	} else {
-		osutil.CreateIfNotExists(filepath.Join(currDir, desti), 0755)
-		osutil.CopyDirectory(filepath.Join(barePath, bareName), filepath.Join(currDir, desti))
+	// Prompt variables
+	TempObj.Variables = make(map[string]string)
+	for k, e := range parser.BareObj.Variables {
+		varName := ui.PromptString(k, e)
+		TempObj.Variables[k] = varName
 	}
+	osutil.MakeDownloadFolder()
+	git.DownloadZip("bare-cli", "vanilla-js-template", "main", parser.BareObj.BareName)
 
 }
