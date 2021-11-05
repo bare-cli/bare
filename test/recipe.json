@@ -5,5 +5,14 @@
     "Include" : [
         "src/index.js",
         "Dockerfile"
-    ]
+    ],
+	"Variants" : [
+		"Var1",
+		"Var2"
+	],
+	"Variables" : {
+		"AppName" : "example",
+		"x" : "x",
+		"y" : "y"
+	}
 }
