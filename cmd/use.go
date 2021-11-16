@@ -5,6 +5,7 @@ import (
 	"bare/utils/osutil"
 	"bare/utils/parser"
 	"bare/utils/ui"
+	"log"
 
 	"github.com/spf13/cobra"
 )
@@ -58,6 +59,8 @@ func useBare(bareName, desti string) {
 		TempObj.Variables[k] = varName
 	}
 	osutil.MakeDownloadFolder()
-	git.DownloadZip("bare-cli", "vanilla-js-template", "main", parser.BareObj.BareName)
-
+	err := git.DownloadZip("bare-cli", "vanilla-js-template", "main", parser.BareObj.BareName)
+	if err != nil {
+		log.Fatal(err)
+	}
 }

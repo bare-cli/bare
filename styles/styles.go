@@ -17,3 +17,6 @@ var AddFileStlyle = lipgloss.NewStyle().
 	Foreground(lipgloss.Color("#b600da"))
 
 var Warning = lipgloss.NewStyle().Foreground(lipgloss.Color("13"))
+
+var PromptStyle = lipgloss.NewStyle().
+	Foreground(lipgloss.Color("#00BDFF"))

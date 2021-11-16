@@ -1,6 +1,7 @@
 package git
 
 import (
+	"errors"
 	"io"
 	"log"
 	"net/http"
@@ -10,7 +11,7 @@ import (
 
 const zipDownloadUrl = "https://codeload.github.com/"
 
-func DownloadZip(user, repo, branch, fileName string) {
+func DownloadZip(user, repo, branch, fileName string) error {
 	zipUrl := zipDownloadUrl + user + "/" + repo + "/" + "tar.gz/" + branch
 
 	resp, err := http.Get(zipUrl)
@@ -21,7 +22,7 @@ func DownloadZip(user, repo, branch, fileName string) {
 	defer resp.Body.Close()
 
 	if resp.StatusCode != 200 {
-		return
+		return errors.New("Status Code is not 200")
 	}
 	homePath := os.Getenv("HOME")
 	out, err := os.Create(filepath.Join(homePath, ".bare", "tmp", fileName+".tar.gz"))
@@ -34,4 +35,6 @@ func DownloadZip(user, repo, branch, fileName string) {
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	return nil
 }
