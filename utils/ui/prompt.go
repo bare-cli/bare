@@ -1,10 +1,14 @@
 package ui
 
 import (
+	"bare/styles"
+	"bufio"
 	"errors"
 	"fmt"
 	"log"
+	"os"
 	"strconv"
+	"strings"
 
 	"github.com/manifoldco/promptui"
 )
@@ -33,18 +37,14 @@ func Prompt() {
 	fmt.Printf("You choose %q\n", result)
 }
 
-func PromptString(label string, def string) string {
-	prompt := promptui.Prompt{
-		Label:   label,
-		Default: def,
-	}
-
-	result, err := prompt.Run()
+func PromptString(label string, defval string) string {
+	fmt.Print(styles.PromptStyle.Render(label + " [" + defval + "]" + " > "))
+	input := bufio.NewReader(os.Stdin)
+	line, err := input.ReadString('\n')
 	if err != nil {
-		log.Fatal("Error encountered in Prompt.")
+		log.Fatal(err)
 	}
-
-	return result
+	return strings.TrimSuffix(line, "\n")
 }
 
 func PromptSelect(label string, items []string) string {
