@@ -5,9 +5,13 @@ import (
 	"bare/utils/osutil"
 	"bare/utils/parser"
 	"bare/utils/ui"
+	"fmt"
 	"log"
+	"os"
+	"path/filepath"
 
 	"github.com/spf13/cobra"
+	"github.com/walle/targz"
 )
 
 func init() {
@@ -58,9 +62,23 @@ func useBare(bareName, desti string) {
 		varName := ui.PromptString(k, e)
 		TempObj.Variables[k] = varName
 	}
+
 	osutil.MakeDownloadFolder()
-	err := git.DownloadZip("bare-cli", "vanilla-js-template", "main", parser.BareObj.BareName)
+	err := git.DownloadZip(user, repo, branch, parser.BareObj.BareName)
 	if err != nil {
 		log.Fatal(err)
+	}
+
+	var downloadZipName string = parser.BareObj.BareName + ".tar.gz"
+	var extractZipName string = repo + "-" + branch
+	err = targz.Extract(filepath.Join(BarePath, "tmp", downloadZipName), BarePath)
+	if err != nil {
+		log.Fatal("Error extracting template")
+	}
+
+	fmt.Println(downloadZipName, extractZipName)
+	err = os.Rename(filepath.Join(BarePath, extractZipName), filepath.Join(BarePath, parser.BareObj.BareName))
+	if err != nil {
+		log.Fatal("Error renaming template")
 	}
 }
