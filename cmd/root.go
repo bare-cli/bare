@@ -4,9 +4,12 @@ import (
 	"bare/styles"
 	"fmt"
 	"os"
+	"path/filepath"
 
 	"github.com/spf13/cobra"
 )
+
+var BarePath = filepath.Join(os.Getenv("HOME"), ".bare")
 
 var rootCmd = &cobra.Command{
 	Use:   "bare",
