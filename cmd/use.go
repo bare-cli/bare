@@ -37,19 +37,6 @@ type NewTemplate struct {
 var TempObj NewTemplate
 
 func useBare(bareName, desti string) {
-	// TODO
-	//	[x] Parse github repo
-	// 	[x] Get recipe.json
-	// 	[x] prompt preferences
-	//		[x] Prompt Project name
-	//		[x] Prompt template
-	//		[x] Prompt variables
-	// 	[ ] If successful download .tar.gz
-	// 	[ ] extract .tar.gz
-	// 		[ ] If -C flag is present cache it.
-	// 	[ ] Execute the required template
-	// - Download the repo as .tar.gz
-
 	user, repo, branch := parser.ParseGithubRepo(bareName)
 	parser.GetRecipe(user, repo, branch)
 	//ui.PromptStringNew("Enter project name", parser.BareObj.BareName)
@@ -76,8 +63,14 @@ func useBare(bareName, desti string) {
 		log.Fatal("Error extracting template")
 	}
 
-	fmt.Println(downloadZipName, extractZipName)
-	err = os.Rename(filepath.Join(BarePath, extractZipName), filepath.Join(BarePath, parser.BareObj.BareName))
+	if !osutil.Exists(filepath.Join(BarePath, parser.BareObj.BareName)) {
+		err = os.Rename(filepath.Join(BarePath, extractZipName), filepath.Join(BarePath, parser.BareObj.BareName))
+	} else {
+		// TODO
+		// [ ] Prompt to replace template
+		fmt.Println("Template with similar name already exsists")
+		return
+	}
 	if err != nil {
 		log.Fatal("Error renaming template")
 	}

@@ -2,7 +2,6 @@ package git
 
 import (
 	"errors"
-	"fmt"
 	"io"
 	"log"
 	"net/http"
@@ -26,7 +25,6 @@ func DownloadZip(user, repo, branch, fileName string) error {
 		return errors.New("Status Code is not 200")
 	}
 	homePath := os.Getenv("HOME")
-	fmt.Println("#####", fileName)
 	out, err := os.Create(filepath.Join(homePath, ".bare", "tmp", fileName+".tar.gz"))
 	if err != nil {
 		log.Fatal(err)
