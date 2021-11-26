@@ -1,6 +1,7 @@
 package template
 
 import (
+	"fmt"
 	"os"
 	"path/filepath"
 	"text/template"
@@ -32,8 +33,8 @@ type AppNameReplace struct {
 	AppName string
 }
 
-// Replaces {{AppName}} from the template
-func Execute(path string, fileName string) error {
+// Replaces all the variable from the template
+func Execute(path string) error {
 	return filepath.Walk(path, func(fileName string, info os.FileInfo, err error) error {
 		if err != nil {
 			return err
@@ -50,6 +51,7 @@ func Execute(path string, fileName string) error {
 		if err := fnameTmpl.Execute(buf, appName); err != nil {
 			return err
 		}
+		fmt.Println(buf)
 		return nil
 	})
 }

@@ -10,9 +10,10 @@ import (
 )
 
 const zipDownloadUrl = "https://codeload.github.com/"
+const zipDownloadFormat = "/zip/"
 
 func DownloadZip(user, repo, branch, fileName string) error {
-	zipUrl := zipDownloadUrl + user + "/" + repo + "/" + "tar.gz/" + branch
+	zipUrl := zipDownloadUrl + user + "/" + repo + zipDownloadFormat + branch
 
 	resp, err := http.Get(zipUrl)
 	if err != nil {
@@ -25,7 +26,7 @@ func DownloadZip(user, repo, branch, fileName string) error {
 		return errors.New("Status Code is not 200")
 	}
 	homePath := os.Getenv("HOME")
-	out, err := os.Create(filepath.Join(homePath, ".bare", "tmp", fileName+".tar.gz"))
+	out, err := os.Create(filepath.Join(homePath, ".bare", "tmp", fileName+".zip"))
 	if err != nil {
 		log.Fatal(err)
 	}

@@ -4,6 +4,7 @@ import (
 	"bare/utils/git"
 	"bare/utils/osutil"
 	"bare/utils/parser"
+	"bare/utils/template"
 	"bare/utils/ui"
 	"fmt"
 	"log"
@@ -11,7 +12,6 @@ import (
 	"path/filepath"
 
 	"github.com/spf13/cobra"
-	"github.com/walle/targz"
 )
 
 func init() {
@@ -56,22 +56,21 @@ func useBare(bareName, desti string) {
 		log.Fatal(err)
 	}
 
-	var downloadZipName string = parser.BareObj.BareName + ".tar.gz"
-	var extractZipName string = repo + "-" + branch
-	err = targz.Extract(filepath.Join(BarePath, "tmp", downloadZipName), BarePath)
+	var downloadZipName string = parser.BareObj.BareName + ".zip"
+	var downloadZipPath string = filepath.Join(BarePath, "tmp", downloadZipName)
+	//var extractZipName string = repo + "-" + branch
+	//var extractZipPath string = BarePath
+	cwd, _ := os.Getwd()
+	var destiPath string = filepath.Join(cwd, desti)
+	// Extract here
+	osutil.Unzip(downloadZipPath, destiPath)
+	//
+	// Execution
+	// Variant path
+	var varPath string = filepath.Join(BarePath, parser.BareObj.BareName, TempObj.Template)
+	err = template.Execute(varPath)
 	if err != nil {
-		log.Fatal("Error extracting template")
+		log.Fatal(err)
 	}
-
-	if !osutil.Exists(filepath.Join(BarePath, parser.BareObj.BareName)) {
-		err = os.Rename(filepath.Join(BarePath, extractZipName), filepath.Join(BarePath, parser.BareObj.BareName))
-	} else {
-		// TODO
-		// [ ] Prompt to replace template
-		fmt.Println("Template with similar name already exsists")
-		return
-	}
-	if err != nil {
-		log.Fatal("Error renaming template")
-	}
+	fmt.Println(varPath)
 }

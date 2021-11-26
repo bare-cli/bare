@@ -28,7 +28,7 @@ func tempBare() {
 	bareName := "test"
 	// currDir, _ := os.Getwd()
 	barePath := filepath.Join(os.Getenv("HOME"), ".bare", bareName)
-	err := template.Execute(barePath, "working")
+	err := template.Execute(barePath)
 	if err != nil {
 		log.Fatal(err)
 	}
