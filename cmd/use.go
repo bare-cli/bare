@@ -4,6 +4,7 @@ import (
 	"bare/utils/git"
 	"bare/utils/osutil"
 	"bare/utils/parser"
+	"bare/utils/template"
 	"bare/utils/ui"
 	"fmt"
 	"log"
@@ -37,19 +38,6 @@ type NewTemplate struct {
 var TempObj NewTemplate
 
 func useBare(bareName, desti string) {
-	// TODO
-	//	[x] Parse github repo
-	// 	[x] Get recipe.json
-	// 	[x] prompt preferences
-	//		[x] Prompt Project name
-	//		[x] Prompt template
-	//		[x] Prompt variables
-	// 	[ ] If successful download .tar.gz
-	// 	[ ] extract .tar.gz
-	// 		[ ] If -C flag is present cache it.
-	// 	[ ] Execute the required template
-	// - Download the repo as .tar.gz
-
 	user, repo, branch := parser.ParseGithubRepo(bareName)
 	parser.GetRecipe(user, repo, branch)
 	//ui.PromptStringNew("Enter project name", parser.BareObj.BareName)
@@ -69,16 +57,21 @@ func useBare(bareName, desti string) {
 		log.Fatal(err)
 	}
 
-	var downloadZipName string = parser.BareObj.BareName + ".tar.gz"
-	var extractZipName string = repo + "-" + branch
-	err = targz.Extract(filepath.Join(BarePath, "tmp", downloadZipName), BarePath)
+	var downloadZipName string = parser.BareObj.BareName + ".zip"
+	var downloadZipPath string = filepath.Join(BarePath, "tmp", downloadZipName)
+	//var extractZipName string = repo + "-" + branch
+	//var extractZipPath string = BarePath
+	cwd, _ := os.Getwd()
+	var destiPath string = filepath.Join(cwd, desti)
+	// Extract here
+	osutil.Unzip(downloadZipPath, destiPath)
+	//
+	// Execution
+	// Variant path
+	var varPath string = filepath.Join(BarePath, parser.BareObj.BareName, TempObj.Template)
+	err = template.Execute(varPath)
 	if err != nil {
-		log.Fatal("Error extracting template")
+		log.Fatal(err)
 	}
-
-	fmt.Println(downloadZipName, extractZipName)
-	err = os.Rename(filepath.Join(BarePath, extractZipName), filepath.Join(BarePath, parser.BareObj.BareName))
-	if err != nil {
-		log.Fatal("Error renaming template")
-	}
+	fmt.Println(varPath)
 }
