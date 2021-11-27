@@ -2,6 +2,7 @@ package git
 
 import (
 	"errors"
+	"fmt"
 	"io"
 	"log"
 	"net/http"
