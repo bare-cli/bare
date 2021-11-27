@@ -4,15 +4,11 @@ import (
 	"bare/utils/git"
 	"bare/utils/osutil"
 	"bare/utils/parser"
-	"bare/utils/template"
 	"bare/utils/ui"
-	"fmt"
 	"log"
-	"os"
 	"path/filepath"
 
 	"github.com/spf13/cobra"
-	"github.com/walle/targz"
 )
 
 func init() {
@@ -40,7 +36,8 @@ var TempObj NewTemplate
 func useBare(bareName, desti string) {
 	user, repo, branch := parser.ParseGithubRepo(bareName)
 	parser.GetRecipe(user, repo, branch)
-	//ui.PromptStringNew("Enter project name", parser.BareObj.BareName)
+
+	// Prompt project name and template
 	TempObj.Name = ui.PromptString("Enter project name", parser.BareObj.BareName)
 	TempObj.Template = ui.PromptSelect("Select template", parser.BareObj.Variants)
 
@@ -57,21 +54,26 @@ func useBare(bareName, desti string) {
 		log.Fatal(err)
 	}
 
-	var downloadZipName string = parser.BareObj.BareName + ".zip"
-	var downloadZipPath string = filepath.Join(BarePath, "tmp", downloadZipName)
-	//var extractZipName string = repo + "-" + branch
-	//var extractZipPath string = BarePath
-	cwd, _ := os.Getwd()
-	var destiPath string = filepath.Join(cwd, desti)
-	// Extract here
-	osutil.Unzip(downloadZipPath, destiPath)
-	//
-	// Execution
-	// Variant path
-	var varPath string = filepath.Join(BarePath, parser.BareObj.BareName, TempObj.Template)
-	err = template.Execute(varPath)
+	downloadZipName := parser.BareObj.BareName + ".zip"
+	downloadZipPath := filepath.Join(BarePath, "tmp", downloadZipName)
+	extractZipName := user + "_" + repo + "_" + branch
+	extractZipPath := BarePath
+	destiPath := filepath.Join(extractZipPath, extractZipName)
+
+	// Create extracted folder at BarePath
+	err = osutil.CreateIfNotExists(filepath.Join(extractZipPath, extractZipName), 0755)
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Println(varPath)
+	// Extract here
+	osutil.Unzip(downloadZipPath, destiPath)
+
+	// Execution
+	// Variant path
+	//var varPath string = filepath.Join(BarePath, parser.BareObj.BareName, TempObj.Template)
+	//err = template.Execute(varPath)
+	//if err != nil {
+	//log.Fatal(err)
+	//}
+	//fmt.Println(varPath)
 }
