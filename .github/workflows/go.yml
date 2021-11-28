@@ -21,5 +21,8 @@ jobs:
     - name: Setup
       run: make setup
       
+    - name: Go format
+      run: diff -u <(echo -n) <(gofmt -d ./)
+    
     - name: Build
       run: make build
