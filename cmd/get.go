@@ -32,13 +32,13 @@ func getGithub(args []string) {
 	targetPath := path.Join(currDir, args[1])
 
 	if osutil.Exists(path.Join(currDir, args[1])) {
-		fmt.Println(styles.InitError.Render("Directory with similar name already exsists !"))
+		fmt.Println(styles.Error.Render("Directory with similar name already exsists !"))
 		os.Exit(1)
 	}
 
 	if err := git.CloneRepo(targetPath, git.CloneOptions{
 		URL: host.URL(args[0]),
 	}); err != nil {
-		fmt.Println(styles.InitError.Render("There was error cloning the repo"), args[0])
+		fmt.Println(styles.Error.Render("There was error cloning the repo"), args[0])
 	}
 }
