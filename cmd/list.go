@@ -19,7 +19,6 @@ var listCmd = &cobra.Command{
 	Use:   "list",
 	Short: "List all the saved bare",
 	Run: func(cmd *cobra.Command, args []string) {
-
 		if len(args) == 0 {
 			ListBare()
 		} else {
@@ -29,13 +28,13 @@ var listCmd = &cobra.Command{
 }
 
 func ListBare() {
-	fmt.Println(styles.InitStyle.Render("Lists of all the bare"))
+	fmt.Println(styles.InitStyle.Render("~ bare list ~"))
 	barePath := filepath.Join(os.Getenv("HOME"), ".bare")
 
 	fis, err := ioutil.ReadDir(barePath)
 
 	if err != nil {
-		fmt.Println(styles.InitError.Render("Error reading directory from ~/.bare"))
+		fmt.Println(styles.Error.Render("Error reading directory from ~/.bare"))
 		os.Exit(1)
 	}
 
@@ -51,7 +50,7 @@ func ListBare() {
 }
 
 func ListFileWalk(bareName string) {
-	fmt.Println(styles.InitStyle.Render("Lists of all the files in"), styles.InitSuccess.Render(bareName))
+	fmt.Println(styles.InitStyle.Render("Lists of all the files in"), styles.Success.Render(bareName))
 	barePath := filepath.Join(os.Getenv("HOME"), ".bare", bareName)
 	printDirectory(barePath, 0)
 }

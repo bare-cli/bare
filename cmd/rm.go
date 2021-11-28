@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"strings"
 
 	"github.com/spf13/cobra"
 )
@@ -21,18 +22,30 @@ var rmCmd = &cobra.Command{
 		if len(args) >= 1 {
 			rmBare(args)
 		} else {
-			fmt.Println(styles.InitError.Render("Not enought arguments"))
+			fmt.Println(styles.Error.Render("Not enought arguments"))
 		}
 	},
 }
 
 func rmBare(delBares []string) {
-	fmt.Println(styles.InitStyle.Render("Bare rm"))
+	fmt.Println(styles.InitStyle.Render("~ bare rm ~"))
 	barePath := filepath.Join(os.Getenv("HOME"), ".bare")
+	deletedBare := []string{}
 	for _, bare := range delBares {
 		if osutil.Exists(filepath.Join(barePath, bare)) {
-			fmt.Println(styles.InitError.Render("[Deleting] "), bare)
-			os.RemoveAll(filepath.Join(barePath, bare))
+			fmt.Println(styles.StatusError.Render("X"), bare)
+			err := os.RemoveAll(filepath.Join(barePath, bare))
+			if err != nil {
+				fmt.Println(styles.Error.Render("[Error] There was problem removing"), bare)
+				os.Exit(1)
+			}
+			deletedBare = append(deletedBare, bare)
+		} else {
+			fmt.Println(styles.Warning.Render("Bare does not exsist!"), bare)
 		}
 	}
+	if len(deletedBare) > 0 {
+		fmt.Println(styles.Success.Render("[Success] successfully removed"), strings.Trim(fmt.Sprint(deletedBare), "[]"))
+	}
+
 }

@@ -7,14 +7,11 @@ import "github.com/charmbracelet/lipgloss"
 var InitStyle = lipgloss.NewStyle().
 	Foreground(lipgloss.Color("12"))
 
-var InitError = lipgloss.NewStyle().
+var Error = lipgloss.NewStyle().
 	Foreground(lipgloss.Color("1"))
 
-var InitSuccess = lipgloss.NewStyle().
+var Success = lipgloss.NewStyle().
 	Foreground(lipgloss.Color("#30da00"))
-
-var AddFileStlyle = lipgloss.NewStyle().
-	Foreground(lipgloss.Color("#b600da"))
 
 var Warning = lipgloss.NewStyle().Foreground(lipgloss.Color("13"))
 
@@ -26,3 +23,6 @@ var StatusSuccess = lipgloss.NewStyle().Bold(true).
 
 var StatusPrompt = lipgloss.NewStyle().Bold(true).
 	Foreground(lipgloss.Color("#00BDFF"))
+
+var StatusError = lipgloss.NewStyle().Bold(true).
+	Foreground(lipgloss.Color("#FF3A3A"))
