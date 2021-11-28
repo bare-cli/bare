@@ -1,11 +1,13 @@
 package cmd
 
 import (
+	"bare/styles"
 	"bare/utils/git"
 	"bare/utils/osutil"
 	"bare/utils/parser"
 	"bare/utils/template"
 	"bare/utils/ui"
+	"bare/utils/validate"
 	"fmt"
 	"log"
 	"os"
@@ -22,6 +24,11 @@ var useCmd = &cobra.Command{
 	Use:   "use",
 	Short: "Create a project from all your bares",
 	Run: func(cmd *cobra.Command, args []string) {
+		err := validate.ValidateArgCount(2, len(args))
+		if err != nil {
+			fmt.Println(styles.StatusError.Render("X"), err)
+			os.Exit(1)
+		}
 		useBare(args[0], args[1])
 		// bare use <bare-name> <destination>
 	},
