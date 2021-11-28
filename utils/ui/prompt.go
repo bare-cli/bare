@@ -38,13 +38,17 @@ func Prompt() {
 }
 
 func PromptString(label string, defval string) string {
-	fmt.Print(styles.PromptStyle.Render(label + " [" + defval + "]" + " > "))
+	fmt.Print(styles.StatusPrompt.Render("? "), label, styles.PromptStyle.Render(" ["+defval+"]"), " : ")
 	input := bufio.NewReader(os.Stdin)
 	line, err := input.ReadString('\n')
 	if err != nil {
 		log.Fatal(err)
 	}
-	return strings.TrimSuffix(line, "\n")
+	line = strings.TrimSuffix(line, "\n")
+	if len(line) == 0 {
+		return defval
+	}
+	return line
 }
 
 func PromptSelect(label string, items []string) string {
@@ -61,6 +65,7 @@ func PromptSelect(label string, items []string) string {
 	if err != nil {
 		log.Fatal("Error encountered in Prompt.")
 	}
-	fmt.Printf("Template : %s\n", result)
+
+	fmt.Println(styles.StatusPrompt.Render("?"), "Template : ", result)
 	return result
 }

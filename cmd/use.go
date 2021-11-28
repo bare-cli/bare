@@ -4,8 +4,11 @@ import (
 	"bare/utils/git"
 	"bare/utils/osutil"
 	"bare/utils/parser"
+	"bare/utils/template"
 	"bare/utils/ui"
+	"fmt"
 	"log"
+	"os"
 	"path/filepath"
 
 	"github.com/spf13/cobra"
@@ -44,10 +47,9 @@ func useBare(bareName, desti string) {
 	// Prompt variables
 	TempObj.Variables = make(map[string]string)
 	for k, e := range parser.BareObj.Variables {
-		varName := ui.PromptString(k, e)
-		TempObj.Variables[k] = varName
+		TempObj.Variables[k] = ui.PromptString(k, e)
 	}
-
+	fmt.Println(TempObj)
 	osutil.MakeDownloadFolder()
 	err := git.DownloadZip(user, repo, branch, parser.BareObj.BareName)
 	if err != nil {
@@ -70,10 +72,12 @@ func useBare(bareName, desti string) {
 
 	// Execution
 	// Variant path
-	//var varPath string = filepath.Join(BarePath, parser.BareObj.BareName, TempObj.Template)
-	//err = template.Execute(varPath)
-	//if err != nil {
-	//log.Fatal(err)
-	//}
-	//fmt.Println(varPath)
+	varPath := filepath.Join(BarePath, extractZipName, TempObj.Template)
+	currDir, err := os.Getwd()
+	targetPath := filepath.Join(currDir, desti)
+	err = template.Execute(varPath, targetPath, TempObj.Variables)
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(varPath)
 }
