@@ -20,3 +20,9 @@ var Warning = lipgloss.NewStyle().Foreground(lipgloss.Color("13"))
 
 var PromptStyle = lipgloss.NewStyle().
 	Foreground(lipgloss.Color("#00BDFF"))
+
+var StatusSuccess = lipgloss.NewStyle().Bold(true).
+	Foreground(lipgloss.Color("#74FF33"))
+
+var StatusPrompt = lipgloss.NewStyle().Bold(true).
+	Foreground(lipgloss.Color("#00BDFF"))
