@@ -65,7 +65,7 @@ func useBare(bareName, desti string) {
 
 	downloadZipName := parser.BareObj.BareName + ".zip"
 	downloadZipPath := filepath.Join(BarePath, "tmp", downloadZipName)
-	extractZipName := user + "_" + repo + "_" + branch
+	extractZipName := parser.BareObj.BareName + "_" + user
 	extractZipPath := BarePath
 	destiPath := filepath.Join(extractZipPath, extractZipName)
 
