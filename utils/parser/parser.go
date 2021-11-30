@@ -14,11 +14,11 @@ import (
 const raw_url = "https://raw.githubusercontent.com/"
 
 type Bare struct {
-	BareName  string
-	Version   string
-	BarePath  string
-	Variants  []string // Template name -> description (to be asked in prompt)
-	Variables map[string]string
+	BareName     string
+	Version      string
+	BarePath     string
+	Variants     []string // Template name -> description (to be asked in prompt)
+	Placeholders map[string]string
 }
 
 var BareObj Bare
