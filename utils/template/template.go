@@ -34,8 +34,8 @@ type AppNameReplace struct {
 	AppName string
 }
 
-// Replaces all the variable from the template
-func Execute(source string, dirPrefix string, variables map[string]string) error {
+// Replaces all the placeholders from the template
+func Execute(source string, dirPrefix string, placeholders map[string]string) error {
 
 	isOnlyWhitespace := func(buf []byte) bool {
 		wsre := regexp.MustCompile(`\S`)
@@ -55,7 +55,7 @@ func Execute(source string, dirPrefix string, variables map[string]string) error
 
 		buf := stringutils.NewString("")
 		fnameTmpl := template.Must(template.New("File name template").Option(Options...).Parse(oldName))
-		if err := fnameTmpl.Execute(buf, variables); err != nil {
+		if err := fnameTmpl.Execute(buf, placeholders); err != nil {
 			return err
 		}
 		newName := buf.String()
@@ -94,7 +94,7 @@ func Execute(source string, dirPrefix string, variables map[string]string) error
 			contentsTmpl := template.Must(template.New("File contents template").Option(Options...).ParseFiles(fileName))
 			fileTemplateName := filepath.Base(fileName)
 
-			if err := contentsTmpl.ExecuteTemplate(f, fileTemplateName, variables); err != nil {
+			if err := contentsTmpl.ExecuteTemplate(f, fileTemplateName, placeholders); err != nil {
 				return err
 			}
 		}

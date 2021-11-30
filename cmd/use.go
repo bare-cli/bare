@@ -35,10 +35,10 @@ var useCmd = &cobra.Command{
 }
 
 type NewTemplate struct {
-	Name      string
-	Template  string
-	Variables map[string]string
-	BarePath  string
+	Name         string
+	Template     string
+	Placeholders map[string]string
+	BarePath     string
 }
 
 var TempObj NewTemplate
@@ -51,10 +51,10 @@ func useBare(bareName, desti string) {
 	TempObj.Name = ui.PromptString("Enter project name", parser.BareObj.BareName)
 	TempObj.Template = ui.PromptSelect("Select template", parser.BareObj.Variants)
 
-	// Prompt variables
-	TempObj.Variables = make(map[string]string)
-	for k, e := range parser.BareObj.Variables {
-		TempObj.Variables[k] = ui.PromptString(k, e)
+	// Prompt placeholders
+	TempObj.Placeholders = make(map[string]string)
+	for k, e := range parser.BareObj.Placeholders {
+		TempObj.Placeholders[k] = ui.PromptString(k, e)
 	}
 	fmt.Println(TempObj)
 	osutil.MakeDownloadFolder()
@@ -82,7 +82,7 @@ func useBare(bareName, desti string) {
 	varPath := filepath.Join(BarePath, extractZipName, TempObj.Template)
 	currDir, err := os.Getwd()
 	targetPath := filepath.Join(currDir, desti)
-	err = template.Execute(varPath, targetPath, TempObj.Variables)
+	err = template.Execute(varPath, targetPath, TempObj.Placeholders)
 	if err != nil {
 		log.Fatal(err)
 	}
