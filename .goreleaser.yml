@@ -40,7 +40,7 @@ snapcrafts:
     summary: Create projects from boilerplate faster than ever
     description: This is the best drum roll application out there. Install it and awe!
 
-    grade: beta 
+    grade: devel 
 
     confinement: strict
 
