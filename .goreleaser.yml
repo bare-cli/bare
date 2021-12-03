@@ -30,3 +30,22 @@ changelog:
     exclude:
       - '^docs:'
       - '^test:'
+
+snapcrafts:
+  -
+    # The name of the snap. This is optional.
+    # Default is project name.
+    name: bare-cli 
+    publish: true
+    summary: Create projects from boilerplate faster than ever
+    description: This is the best drum roll application out there. Install it and awe!
+
+    grade: beta 
+
+    confinement: strict
+
+    license: MIT
+
+    layout:
+      /etc/bare-cli:
+        bind: $SNAP_DATA/etc 
