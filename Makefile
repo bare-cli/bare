@@ -1,5 +1,5 @@
 dev:
-	nodemon --exec "go fmt && go build -o bin/test/baren" main.go
+	air main.go
 
 build:
 	go build -o bin/bare main.go

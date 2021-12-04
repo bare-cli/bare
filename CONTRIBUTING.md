@@ -21,9 +21,13 @@ or by [gh](https://github.com/cli/cli) :
 	make setup
 	```
 - `go mod tidy` (Optional, if bash errors out)
+
+- Run development envrionment
+```
+make dev
+```
 - Build the tool using make:
 	`make build`
-
 Now you will have your tool in `bin` folder, you can try it out following `Readme.md`. 
 
 
