@@ -14,6 +14,7 @@ import (
 const raw_url = "https://raw.githubusercontent.com/"
 
 type Bare struct {
+	Author       string
 	BareName     string
 	Version      string
 	BarePath     string
