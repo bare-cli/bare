@@ -48,8 +48,7 @@ func useBare(bareName, desti string) {
 	parser.GetRecipe(user, repo, branch)
 
 	// Prompt project name and template
-	TempObj.Name = ui.PromptString("Enter project name", parser.BareObj.BareName)
-	TempObj.Template = ui.PromptSelect("Select template", parser.BareObj.Variants)
+	TempObj.Template = ui.VarPromptSelect("Select template", parser.BareObj.Variants)
 
 	// Prompt placeholders
 	TempObj.Placeholders = make(map[string]string)

@@ -26,3 +26,6 @@ var StatusPrompt = lipgloss.NewStyle().Bold(true).
 
 var StatusError = lipgloss.NewStyle().Bold(true).
 	Foreground(lipgloss.Color("#FF3A3A"))
+
+var Description = lipgloss.NewStyle().
+	Foreground(lipgloss.Color("#969696"))

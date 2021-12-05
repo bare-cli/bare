@@ -4,6 +4,7 @@ import (
 	"bare/styles"
 	"bare/utils/parser"
 	"fmt"
+	"strings"
 
 	"github.com/spf13/cobra"
 )
@@ -26,8 +27,5 @@ func InfoBare(bareName string) {
 	// TODO Add variant description
 	fmt.Println(styles.StatusPrompt.Render("Author   :"), parser.BareObj.Author)
 	fmt.Println(styles.StatusPrompt.Render("Barename :"), parser.BareObj.BareName, parser.BareObj.Version)
-	fmt.Println(styles.StatusPrompt.Render("Variants :"))
-	for _, variant := range parser.BareObj.Variants {
-		fmt.Println("*", variant)
-	}
+	fmt.Println(styles.StatusPrompt.Render("Variants :"), strings.Trim(fmt.Sprint(parser.BareObj.Variants), "[]"))
 }
