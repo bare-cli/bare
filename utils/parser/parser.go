@@ -1,7 +1,6 @@
 package parser
 
 import (
-	"bare/utils/osutil"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
@@ -19,7 +18,7 @@ type Bare struct {
 	Version      string
 	BarePath     string
 	Variants     []string // Template name -> description (to be asked in prompt)
-	Placeholders map[string]string
+	Placeholders map[string][]string
 }
 
 var BareObj Bare
@@ -38,21 +37,6 @@ func Parser(filePath string) {
 
 	if BareObj.BareName == "" {
 		log.Fatal("Bare name not present")
-	}
-}
-
-func UpdateRecipe() {
-	currDir, _ := os.Getwd()
-	recipePath := currDir + "/recipe.json"
-	updatedRecipe, err := json.MarshalIndent(BareObj, "", "    ")
-	if err != nil {
-		log.Fatal(err)
-	}
-	if osutil.Exists(recipePath) {
-		err = ioutil.WriteFile(recipePath, updatedRecipe, 0644)
-		if err != nil {
-			log.Fatal(err)
-		}
 	}
 }
 

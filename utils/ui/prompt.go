@@ -37,8 +37,13 @@ func Prompt() {
 	fmt.Printf("You choose %q\n", result)
 }
 
-func PromptString(label string, defval string) string {
-	fmt.Print(styles.StatusPrompt.Render("? "), label, styles.PromptStyle.Render(" ["+defval+"]"), " : ")
+func PromptString(label string, defval []string) string {
+	phDef := defval[0]
+	phDes := ""
+	if len(defval) > 1 {
+		phDes = defval[1]
+	}
+	fmt.Print(styles.StatusPrompt.Render("? "), label, " ", styles.Description.Render(phDes), styles.PromptStyle.Render(" ["+phDef+"]"), ": ")
 	input := bufio.NewReader(os.Stdin)
 	line, err := input.ReadString('\n')
 	if err != nil {
@@ -46,12 +51,12 @@ func PromptString(label string, defval string) string {
 	}
 	line = strings.TrimSuffix(line, "\n")
 	if len(line) == 0 {
-		return defval
+		return phDef
 	}
 	return line
 }
 
-func PromptSelect(label string, items []string) string {
+func VarPromptSelect(label string, items []string) string {
 
 	prompt := promptui.Select{
 		Label:        label,
