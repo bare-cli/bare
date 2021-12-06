@@ -49,3 +49,7 @@ snapcrafts:
     layout:
       /etc/bare-cli:
         bind: $SNAP_DATA/etc 
+
+    apps:
+        bare-cli:
+            command: bare
