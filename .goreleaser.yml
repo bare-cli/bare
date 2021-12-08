@@ -13,13 +13,14 @@ builds:
       - linux
       - windows
       - darwin
-archives:
-  - replacements:
-      darwin: Darwin
-      linux: Linux
-      windows: Windows
-      386: i386
-      amd64: x86_64
+    goarch:
+      - amd64
+      - arm
+      - arm64
+      - "386"
+    goarm:
+      - "6"
+    main: .
 checksum:
   name_template: 'checksums.txt'
 snapshot:
@@ -35,7 +36,7 @@ snapcrafts:
   -
     # The name of the snap. This is optional.
     # Default is project name.
-    name: bare-cli 
+    name: bare
     publish: true
     summary: Create projects from boilerplate faster than ever
     description: This is the best drum roll application out there. Install it and awe!
@@ -53,3 +54,13 @@ snapcrafts:
     apps:
         bare-cli:
             command: bare
+nfpms:
+  - 
+    homepage: https://github.com/bare-cli/bare
+    maintainer: Shlok Patel <shlokcpatel2001@gmail.com>
+    description: "Fast and easy way to create code from the boilerplate"
+    bindir: /usr/local/bin
+    license: MIT
+    formats:
+        - deb
+        - rpm
