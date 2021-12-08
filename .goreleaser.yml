@@ -53,3 +53,13 @@ snapcrafts:
     apps:
         bare-cli:
             command: bare
+nfpms:
+  - 
+    homepage: https://github.com/bare-cli/bare
+    maintainer: Shlok Patel <shlokcpatel2001@gmail.com>
+    description: "Fast and easy way to create code from the boilerplate"
+    bindir: /usr/local/bin
+    license: MIT
+    formats:
+        - deb
+        - rpm
