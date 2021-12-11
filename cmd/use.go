@@ -14,10 +14,14 @@ import (
 	"path/filepath"
 
 	"github.com/spf13/cobra"
+	flag "github.com/spf13/pflag"
 )
+
+var keepDownloadedZip *bool = flag.Bool("keep", false, "Keep downloaded ")
 
 func init() {
 	rootCmd.AddCommand(useCmd)
+	flag.Parse()
 }
 
 var useCmd = &cobra.Command{
@@ -55,7 +59,6 @@ func useBare(bareName, desti string) {
 	for k, e := range parser.BareObj.Placeholders {
 		TempObj.Placeholders[k] = ui.PromptString(k, e)
 	}
-	fmt.Println(TempObj)
 	osutil.MakeDownloadFolder()
 	err := git.DownloadZip(user, repo, branch, parser.BareObj.BareName)
 	if err != nil {
@@ -85,5 +88,11 @@ func useBare(bareName, desti string) {
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Println(varPath)
+
+	if !*keepDownloadedZip {
+		if osutil.Exists(filepath.Join(extractZipPath, extractZipName)) {
+			err = os.RemoveAll(filepath.Join(extractZipPath, extractZipName))
+		}
+	}
+	fmt.Println("Your project has been created", styles.InitStyle.Render("GLHF!!"))
 }
