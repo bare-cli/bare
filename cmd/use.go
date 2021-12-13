@@ -12,6 +12,7 @@ import (
 	"log"
 	"os"
 	"path/filepath"
+	"strings"
 
 	"github.com/spf13/cobra"
 	flag "github.com/spf13/pflag"
@@ -94,5 +95,25 @@ func useBare(bareName, desti string) {
 			err = os.RemoveAll(filepath.Join(extractZipPath, extractZipName))
 		}
 	}
+
+	// Git init
+	gitDefVal := []string{"n", "y/N"}
+	var gitInitData git.NewRepo
+	doGitInitPrompt := ui.PromptString("Initialize with git", gitDefVal)
+
+	if strings.ToLower(doGitInitPrompt) != "n" {
+		gitInitData.Path = filepath.Join(targetPath, TempObj.Placeholders["AppName"])
+		gitInitData.Remote = ui.PromptString("Git remote link", []string{"", "Enter link to online repository"})
+		if gitInitData.Remote == "" {
+			fmt.Println(styles.Error.Render("Remote link cannot be empty"))
+			os.Exit(1)
+		}
+		err = git.GitInit(gitInitData)
+		if err != nil {
+			fmt.Println(styles.Error.Render("Error with git init!"))
+			os.Exit(1)
+		}
+	}
+
 	fmt.Println("Your project has been created", styles.InitStyle.Render("GLHF!!"))
 }

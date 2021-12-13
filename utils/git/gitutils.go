@@ -7,6 +7,7 @@ import (
 	"os"
 
 	git "github.com/go-git/go-git/v5"
+	"github.com/go-git/go-git/v5/config"
 	"github.com/google/go-github/v39/github"
 	"golang.org/x/oauth2"
 )
@@ -16,6 +17,11 @@ var (
 	description = "This is a test repo created from golang"
 	private     = true
 )
+
+type NewRepo struct {
+	Remote string
+	Path   string
+}
 
 func CreateRepo() {
 	token := os.Getenv("GITHUB_AUTH_TOKEN")
@@ -48,4 +54,21 @@ func CloneRepo(dir string, opts CloneOptions) error {
 	_, err := git.PlainClone(dir, false, &o)
 
 	return err
+}
+
+func GitInit(initData NewRepo) error {
+	repo, err := git.PlainInit(initData.Path, false)
+	if err != nil {
+		return err
+	}
+
+	_, err = repo.CreateRemote(&config.RemoteConfig{
+		Name: "origin",
+		URLs: []string{initData.Remote},
+	})
+
+	if err != nil {
+		return err
+	}
+	return nil
 }
