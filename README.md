@@ -1,6 +1,8 @@
 # BARE
 
 A tool to manage all your boilerplate from cli and generate files for you !
+![Bare Demo](https://github.com/bare-cli/bare/blob/main/assets/bare-demo.gif)
+
 ## Installation
 Currently available for debian based system will release for other systems later
 - From `npm` : 
