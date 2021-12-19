@@ -115,5 +115,8 @@ func useBare(bareName, desti string) {
 		}
 	}
 
+	// Add license
+	git.AddLicense(filepath.Join(targetPath, TempObj.Placeholders["AppName"], "LICENSE"))
+
 	fmt.Println("Your project has been created", styles.InitStyle.Render("GLHF!!"))
 }
