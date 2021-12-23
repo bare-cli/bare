@@ -32,33 +32,33 @@ changelog:
       - '^docs:'
       - '^test:'
 
-snapcrafts:
-  -
-    # The name of the snap. This is optional.
-    # Default is project name.
-    name: bare
-    publish: true
-    summary: Create projects from boilerplate faster than ever
-    description: This is the best drum roll application out there. Install it and awe!
+#snapcrafts:
+  #-
+    ## The name of the snap. This is optional.
+    ## Default is project name.
+    #name: bare
+    #publish: true
+    #summary: Create projects from boilerplate faster than ever
+    #description: This is the best drum roll application out there. Install it and awe!
 
-    grade: devel 
+    #grade: devel 
 
-    confinement: strict
+    #confinement: strict
 
-    license: MIT
+    #license: MIT
 
-    layout:
-      /etc/bare-cli:
-        bind: $SNAP_DATA/etc 
+    #layout:
+      #/etc/bare-cli:
+        #bind: $SNAP_DATA/etc 
 
-    apps:
-        bare-cli:
-            command: bare
+    #apps:
+        #bare-cli:
+            #command: bare
 nfpms:
   - 
     homepage: https://github.com/bare-cli/bare
     maintainer: Shlok Patel <shlokcpatel2001@gmail.com>
-    description: "Fast and easy way to create code from the boilerplate"
+    description: "Fast and easy way to create project from the boilerplate"
     bindir: /usr/local/bin
     license: MIT
     formats:
