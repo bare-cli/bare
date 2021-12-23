@@ -24,7 +24,7 @@ require (
 	github.com/mattn/go-runewidth v0.0.13 // indirect
 	github.com/muesli/termenv v0.9.0 // indirect
 	github.com/rivo/uniseg v0.2.0 // indirect
-	github.com/spf13/pflag v1.0.5 // indirect
+	github.com/spf13/pflag v1.0.5
 	golang.org/x/crypto v0.0.0-20210817164053-32db794688a5 // indirect
 	golang.org/x/net v0.0.0-20210405180319-a5a99cb37ef4 // indirect
 	golang.org/x/oauth2 v0.0.0-20210819190943-2bc19b11175f
