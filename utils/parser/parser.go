@@ -19,6 +19,7 @@ type Bare struct {
 	BarePath     string
 	Variants     []string // Template name -> description (to be asked in prompt)
 	Placeholders map[string][]string
+	License      string
 }
 
 var BareObj Bare
