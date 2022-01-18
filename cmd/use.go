@@ -19,6 +19,7 @@ import (
 )
 
 var keepDownloadedZip *bool = flag.Bool("keep", false, "Keep downloaded ")
+var useDefault *bool = flag.Bool("d", false, "Use default value while creating project")
 
 func init() {
 	rootCmd.AddCommand(useCmd)
@@ -54,12 +55,19 @@ func useBare(bareName, desti string) {
 
 	// Prompt project name and template
 	TempObj.Template = ui.VarPromptSelect("Select template", parser.BareObj.Variants)
-
-	// Prompt placeholders
 	TempObj.Placeholders = make(map[string]string)
-	for k, e := range parser.BareObj.Placeholders {
-		TempObj.Placeholders[k] = ui.PromptString(k, e)
+
+	// Set placeholders, prompt if the default flag is not used.
+	if !*useDefault {
+		for k, e := range parser.BareObj.Placeholders {
+			TempObj.Placeholders[k] = ui.PromptString(k, e)
+		}
+	} else if *useDefault {
+		for k, e := range parser.BareObj.Placeholders {
+			TempObj.Placeholders[k] = e[0]
+		}
 	}
+	fmt.Println(TempObj)
 	osutil.MakeDownloadFolder()
 	err := git.DownloadZip(user, repo, branch, parser.BareObj.BareName)
 	if err != nil {
@@ -83,7 +91,7 @@ func useBare(bareName, desti string) {
 	// Execution
 	// Variant path
 	varPath := filepath.Join(BarePath, extractZipName, TempObj.Template)
-	currDir, err := os.Getwd()
+	currDir, _ := os.Getwd()
 	targetPath := filepath.Join(currDir, desti)
 	err = template.Execute(varPath, targetPath, TempObj.Placeholders)
 	if err != nil {
@@ -93,6 +101,10 @@ func useBare(bareName, desti string) {
 	if !*keepDownloadedZip {
 		if osutil.Exists(filepath.Join(extractZipPath, extractZipName)) {
 			err = os.RemoveAll(filepath.Join(extractZipPath, extractZipName))
+			if err != nil {
+				fmt.Println(styles.Error.Render("Error deleting the downloaded codebase."))
+				os.Exit(1)
+			}
 		}
 	}
 
@@ -116,7 +128,10 @@ func useBare(bareName, desti string) {
 	}
 
 	// Add license
-	git.AddLicense(filepath.Join(targetPath, TempObj.Placeholders["AppName"], "LICENSE"))
+
+	if !*useDefault {
+		git.AddLicense(filepath.Join(targetPath, TempObj.Placeholders["AppName"], "LICENSE"))
+	}
 
 	fmt.Println("Your project has been created", styles.InitStyle.Render("GLHF!!"))
 }
