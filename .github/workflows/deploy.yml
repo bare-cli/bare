@@ -5,6 +5,7 @@ on: [push]
 jobs:
   build:
     runs-on: ubuntu-latest
+    if: github.repository_owner == 'bare-cli'
     name: surge
     steps:
       - uses: actions/checkout@v2
