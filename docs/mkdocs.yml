@@ -1,0 +1,30 @@
+site_name: Bare
+nav:
+  - Home: "index.md"
+  - Installation: "install.md"
+  - Commands:
+      - Info: "./commands/info.md"
+      - Use: "./commands/use.md"
+  - Contribute: "contributing.md"
+theme:
+  features:
+    - navigation.instant
+    - navigation.tabs
+  icon:
+    repo: fontawesome/brands/github
+  favicon: "./assets/bare.ico"
+  logo: "./assets/bare-2.png"
+  name: material
+  palette:
+    - scheme: default
+      primary: black
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      primary: black
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+repo_url: https://github.com/bare-cli/bare
+repo_name: bare-cli/bare
