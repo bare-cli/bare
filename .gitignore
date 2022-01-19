@@ -3,3 +3,4 @@ node_modules
 bin/test
 tmp/
 dist/
+docs/site
