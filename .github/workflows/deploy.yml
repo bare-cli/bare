@@ -1,0 +1,22 @@
+name: Deploy docs
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: Deploying to surge...
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.x
+      - run: pip install mkdocs mkdocs-material
+      - run: cd ./docs && mkdocs build
+      - uses: actions/setup-node@v2-beta
+        with:
+          node-verison: 14
+      - run: npm i -g surge
+      - run: cp ./docs/site/index.html ./docs/site/200.html
+      - run: surge ./docs/site bare.surge.sh --token ${{ secrets.SURGE_TOKEN }}
+
