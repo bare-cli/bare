@@ -18,8 +18,9 @@ import (
 	flag "github.com/spf13/pflag"
 )
 
-var keepDownloadedZip *bool = flag.Bool("keep", false, "Keep downloaded ")
-var useDefault *bool = flag.Bool("d", false, "Use default value while creating project")
+var keepDownloadedZip *bool = flag.Bool("keep", false, "Keep downloaded.")
+var shouldUseDefault *bool = flag.Bool("d", false, "Use default value while creating project.")
+var shouldInitGit *bool = flag.Bool("git", false, "Initialize with git version control.")
 
 func init() {
 	rootCmd.AddCommand(useCmd)
@@ -58,11 +59,11 @@ func useBare(bareName, desti string) {
 	TempObj.Placeholders = make(map[string]string)
 
 	// Set placeholders, prompt if the default flag is not used.
-	if !*useDefault {
+	if !*shouldUseDefault {
 		for k, e := range parser.BareObj.Placeholders {
 			TempObj.Placeholders[k] = ui.PromptString(k, e)
 		}
-	} else if *useDefault {
+	} else if *shouldUseDefault {
 		for k, e := range parser.BareObj.Placeholders {
 			TempObj.Placeholders[k] = e[0]
 		}
@@ -111,7 +112,10 @@ func useBare(bareName, desti string) {
 	// Git init
 	gitDefVal := []string{"n", "y/N"}
 	var gitInitData git.NewRepo
-	doGitInitPrompt := ui.PromptString("Initialize with git", gitDefVal)
+	var doGitInitPrompt = "y"
+	if !*shouldInitGit {
+		doGitInitPrompt = ui.PromptString("Initialize with git", gitDefVal)
+	}
 
 	if strings.ToLower(doGitInitPrompt) != "n" {
 		gitInitData.Path = filepath.Join(targetPath, TempObj.Placeholders["AppName"])
@@ -128,8 +132,7 @@ func useBare(bareName, desti string) {
 	}
 
 	// Add license
-
-	if !*useDefault {
+	if !*shouldUseDefault {
 		git.AddLicense(filepath.Join(targetPath, TempObj.Placeholders["AppName"], "LICENSE"))
 	}
 
