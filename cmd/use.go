@@ -57,7 +57,7 @@ func useBare(bareName, desti string) {
 	// Prompt project name and template
 	TempObj.Template = ui.VarPromptSelect("Select template", parser.BareObj.Variants)
 	TempObj.Placeholders = make(map[string]string)
-
+	TempObj.BarePath = parser.BareObj.BarePath
 	// Set placeholders, prompt if the default flag is not used.
 	if !*shouldUseDefault {
 		for k, e := range parser.BareObj.Placeholders {
@@ -68,7 +68,7 @@ func useBare(bareName, desti string) {
 			TempObj.Placeholders[k] = e[0]
 		}
 	}
-	fmt.Println(TempObj)
+
 	osutil.MakeDownloadFolder()
 	err := git.DownloadZip(user, repo, branch, parser.BareObj.BareName)
 	if err != nil {
@@ -76,9 +76,9 @@ func useBare(bareName, desti string) {
 	}
 
 	downloadZipName := parser.BareObj.BareName + ".zip"
-	downloadZipPath := filepath.Join(BarePath, "tmp", downloadZipName)
+	downloadZipPath := filepath.Join(parser.BareObj.BarePath, "tmp", downloadZipName)
 	extractZipName := parser.BareObj.BareName + "_" + user
-	extractZipPath := BarePath
+	extractZipPath := parser.BareObj.BarePath
 	destiPath := filepath.Join(extractZipPath, extractZipName)
 
 	// Create extracted folder at BarePath

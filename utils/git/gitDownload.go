@@ -1,6 +1,7 @@
 package git
 
 import (
+	"bare/utils/osutil"
 	"errors"
 	"io"
 	"log"
@@ -23,10 +24,9 @@ func DownloadZip(user, repo, branch, fileName string) error {
 	defer resp.Body.Close()
 
 	if resp.StatusCode != 200 {
-		return errors.New("Status Code is not 200")
+		return errors.New("status Code is not 200")
 	}
-	homePath := os.Getenv("HOME")
-	out, err := os.Create(filepath.Join(homePath, ".bare", "tmp", fileName+".zip"))
+	out, err := os.Create(filepath.Join(osutil.GetBarePath(), "tmp", fileName+".zip"))
 	if err != nil {
 		log.Fatal(err)
 	}
