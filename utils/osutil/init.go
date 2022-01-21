@@ -6,11 +6,18 @@ import (
 	"path/filepath"
 )
 
+func GetBarePath() string {
+	if os.Getenv("XDG_DATA_HOME") != "" {
+		return os.Getenv("XDG_DATA_HOME")
+	}
+	return filepath.Join(os.Getenv("HOME"), ".local", "share")
+}
+
 func MakeInitFolder() {
-	// Get home directory
-	homePath := os.Getenv("HOME")
-	if !Exists(filepath.Join(homePath, ".bare")) {
-		if err := os.Mkdir(homePath+"/.bare", os.ModePerm); err != nil {
+	// Create Bare path
+	barePath := GetBarePath()
+	if !Exists(filepath.Join(barePath)) {
+		if err := os.Mkdir(barePath, os.ModePerm); err != nil {
 			log.Fatal(err)
 		}
 	}
@@ -18,9 +25,9 @@ func MakeInitFolder() {
 }
 
 func MakeDownloadFolder() {
-	homePath := os.Getenv("HOME")
-	if !Exists(filepath.Join(homePath, ".bare", "tmp")) {
-		if err := os.Mkdir(filepath.Join(homePath, ".bare", "tmp"), os.ModePerm); err != nil {
+	barePath := GetBarePath()
+	if !Exists(filepath.Join(barePath, "tmp")) {
+		if err := os.Mkdir(filepath.Join(barePath, "tmp"), os.ModePerm); err != nil {
 			log.Fatal(err)
 		}
 	}

@@ -1,6 +1,7 @@
 package parser
 
 import (
+	"bare/utils/osutil"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
@@ -56,6 +57,8 @@ func GetRecipe(user string, repo string, branch string) {
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	BareObj.BarePath = osutil.GetBarePath()
 }
 
 // Return user, repo, branch

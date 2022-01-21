@@ -2,14 +2,14 @@ package cmd
 
 import (
 	"bare/styles"
+	"bare/utils/osutil"
 	"fmt"
 	"os"
-	"path/filepath"
 
 	"github.com/spf13/cobra"
 )
 
-var BarePath = filepath.Join(os.Getenv("HOME"), ".bare")
+var BarePath string = osutil.GetBarePath()
 
 var rootCmd = &cobra.Command{
 	Use:   "bare",
